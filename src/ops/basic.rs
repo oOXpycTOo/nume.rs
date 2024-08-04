@@ -1,10 +1,9 @@
 use std::{
     ops::{Add, AddAssign, Mul, Sub},
-    process::Output,
     vec,
 };
 
-use num_traits::{Float, Zero};
+use num_traits::Zero;
 
 #[derive(Debug)]
 pub enum MathError {
@@ -75,11 +74,11 @@ where
     T: Add<Output = T> + Sub<Output = T> + Copy,
 {
     fn elementwise_add(&self, rhs: &Self) -> Result<Vec<T>, MathError> {
-        self.elementwise_op(rhs, |a, b| a + b)
+        self.elementwise_op(rhs, T::add)
     }
 
     fn elementwise_sub(&self, rhs: &Self) -> Result<Vec<T>, MathError> {
-        self.elementwise_op(rhs, |a, b| a - b)
+        self.elementwise_op(rhs, T::sub)
     }
 }
 
